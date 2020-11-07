@@ -21,17 +21,39 @@
  * THE SOFTWARE.
  */
 
-package com.iluwatar.factory;
+package com.iluwatar.circuitbreaker;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
- * Factory of cars.
+ * Monitoring Service test
  */
-public class CarsFactory {
-  
+public class DelayedRemoteServiceTest {
+
   /**
-   * Factory method takes as parameter a car type and initiate the appropriate class.
+   * Testing immediate response of the delayed service.
+   *
+   * @throws RemoteServiceException
    */
-  public static Car getCar(CarType type) {
-    return type.getConstructor().get();
+  @Test
+  public void testDefaultConstructor() throws RemoteServiceException {
+    Assertions.assertThrows(RemoteServiceException.class, () -> {
+      var obj = new DelayedRemoteService();
+      obj.call();
+    });
+  }
+
+  /**
+   * Testing server started in past (2 seconds ago) and with a simulated delay of 1 second.
+   *
+   * @throws RemoteServiceException
+   */
+  @Test
+  public void testParameterizedConstructor() throws RemoteServiceException {
+      var obj = new DelayedRemoteService(System.nanoTime()-2000*1000*1000,1);
+      assertEquals("Delayed service is working",obj.call());
   }
 }

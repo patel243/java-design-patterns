@@ -21,17 +21,14 @@
  * THE SOFTWARE.
  */
 
-package com.iluwatar.factory;
+package com.iluwatar.circuitbreaker;
 
 /**
- * Factory of cars.
+ * The Remote service interface, used by {@link CircuitBreaker} for fetching response from remote
+ * services.
  */
-public class CarsFactory {
-  
-  /**
-   * Factory method takes as parameter a car type and initiate the appropriate class.
-   */
-  public static Car getCar(CarType type) {
-    return type.getConstructor().get();
-  }
+public interface RemoteService {
+
+  //Fetch response from remote service.
+  String call() throws RemoteServiceException;
 }
