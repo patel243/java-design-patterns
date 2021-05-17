@@ -33,8 +33,6 @@ tags:
 
 以巨魔的为例。首先我有有一个简单的巨魔，实现了巨魔接口。
 
-程序mple. First of all we have a simple troll implementing the troll interface
-
 ```java
 public interface Troll {
   void attack();
@@ -42,9 +40,8 @@ public interface Troll {
   void fleeBattle();
 }
 
+@Slf4j
 public class SimpleTroll implements Troll {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(SimpleTroll.class);
 
   @Override
   public void attack() {
@@ -66,9 +63,8 @@ public class SimpleTroll implements Troll {
 下面我们想为巨魔添加球棒。我们可以用装饰者来动态的实现。
 
 ```java
+@Slf4j
 public class ClubbedTroll implements Troll {
-
-  private static final Logger LOGGER = LoggerFactory.getLogger(ClubbedTroll.class);
 
   private final Troll decorated;
 
